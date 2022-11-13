@@ -20,6 +20,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/task/task",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

@@ -49,7 +49,7 @@ Page({
       });
     } else{
       wx.request({
-        url: 'http://localhost:8055/user/login',//接入自己的接口
+        url: 'http://localhost:8080/WeWeb/loginServlet',//接入自己的接口
         data: {
           password:this.data.password,
           username:this.data.username

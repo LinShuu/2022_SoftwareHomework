@@ -1,4 +1,4 @@
-.title{
+.title {
   text-align: center;
   margin-top: 40rpx;
   margin-bottom: 50rpx;
@@ -6,7 +6,7 @@
 }
 
 /* 输入框 */
-.inputview{
+.inputview {
   display: flex;
   /* background-color:#f2f2f7; */
   margin-left: 140rpx;
@@ -15,10 +15,10 @@
   align-items: center;
   margin-top: 3%;
   border-radius: 20rpx;
-  border:2rpx solid #999999;
+  border: 2rpx solid #999999;
 }
 
-.inputview1{
+.inputview1 {
   display: flex;
   /* background-color:#f2f2f7; */
   margin-left: 140rpx;
@@ -27,41 +27,43 @@
   margin-top: 3%;
   border-radius: 20rpx;
   padding-top: 20rpx;
-  border:2rpx solid #999999;
+  border: 2rpx solid #999999;
 }
 
-.inputText{
+.inputText {
   padding-left: 20rpx;
 }
 
-.calendar{
+.calendar {
   margin-top: 30rpx;
   margin-left: 140rpx;
   width: 500rpx;
-  border:2rpx solid #999999;
-  border-radius: 20rpx;
+  border: 2rpx solid #999999;
+  /* border-radius: 20rpx; */
 }
 
-.radio{
+.radio {
   margin-left: 125rpx;
   margin-top: 30rpx;
 }
-.radio_text{
+
+.radio_text {
   margin-bottom: 3%;
 }
-.button{
+
+.button {
   margin-top: 30rpx;
   margin-left: 140rpx;
   height: 100rpx;
   width: 500rpx;
 }
 
-button{
+button {
   border-radius: 40rpx;
   font-size: larger;
 }
 
-.lab{
+.lab {
   width: 400rpx;
   padding-left: 20rpx;
 }

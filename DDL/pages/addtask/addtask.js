@@ -1,39 +1,41 @@
 Page({
   data: {
     //课程名
-    Course:"",
+    Course: '',
     //任务名
-    taskName:"",
+    taskName: '',
     //任务备注
-    taskRemark:"",
+    taskRemark: '',
     //日期
     date: '',
     //日历弹出层，默认隐藏
     show: false,
     //是否设置提醒
-    isChecked_warn: true,
+    isChecked_warn: false,
     //是否同步
-    isChecked_syn:true,
+    isChecked_syn: false,
     //任务类型，默认为课程作业
     radio: '1',
+    powerList: [],
+    type:'',
   },
   // 获取课程名称
-  getCourse(e){
+  getCourse(e) {
     this.setData({
-       Course:e.detail.value
+      Course: e.detail.value
     })
   },
   //获取任务名称
-  getTaskname(e){
+  getTaskname(e) {
     this.setData({
-      taskName:e.detail.value
-   })
+      taskName: e.detail.value
+    })
   },
   //获取任务备注
-  getTaskremark(e){
+  getTaskremark(e) {
     this.setData({
-      taskRemark:e.detail.value
-   })
+      taskRemark: e.detail.value
+    })
   },
   onDisplay() {
     this.setData({ show: true });
@@ -43,7 +45,7 @@ Page({
   },
   formatDate(date) {
     date = new Date(date);
-    return `${date.getMonth() + 1}/${date.getDate()}`;
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
   },
   onConfirm(event) {
     this.setData({
@@ -51,51 +53,90 @@ Page({
       date: this.formatDate(event.detail),
     });
   },
-  onChange({ detail }) {
+  onChange_warn({ detail }) {
     // 需要手动对 checked 状态进行更新
-    this.setData({ checked: detail });
+    this.setData(
+      {
+        checked: detail,
+        isChecked_warn: detail.value
+      }
+    )
+  },
+  onChange_syn({ detail }) {
+    // 需要手动对 checked 状态进行更新
+    this.setData(
+      {
+        checked: detail,
+        isChecked_syn: detail.value
+      }
+    )
   },
   onChange1(event) {
     this.setData({
-      radio: event.detail,
+      radio: event.detail
     });
   },
-  submit(){
-    if(this.data.Course=="" || this.data.taskName=="" || this.data.date==""){
+  submit() {
+    switch (this.data.radio) {
+      case "1":
+        this.setData({
+          type: '课程作业'
+        });
+        console.log(this.data.radio);
+        break;
+      case "2":
+        this.setData({
+          type: '实验'
+        });
+        break;
+      case "3":
+        this.setData({
+          type: '实践作业'
+        });
+        break;
+    }
+    if (this.data.Course == "" || this.data.taskName == "" || this.data.date == "") {
       wx.showToast({
-        icon:'error',
+        icon: 'error',
         title: '请输入完整数据'
       })
-    }
-
-    //需要同步的情况
-    if(this.data.isChecked_syn){
-       wx.request({
-         url: '接口地址',
-         header: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' },
-         data: {
+    } else {
+      //需要同步的情况
+      if (this.data.isChecked_syn == true) {
+        wx.request({
+          url: '接口地址',
+          header: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' },
+          data: {
+            Course: this.data.Course,
+            taskName: this.data.taskName,
+            taskRemark: this.data.taskRemark,
+            deadline: this.data.date,
+            type: this.data.type //1为课程作业，2为实验，3为实践作业
+          },
+          method: 'POST',
+          success: res => {
+            if (res.data == 'sucess') {
+              wx.showToast({
+                title: '新增成功',
+              })
+            } else {
+              wx.showToast({
+                title: '新增失败',
+                icon: 'error'
+              })
+            }
+          }
+        })
+      } else {//不需要同步的情况
+        this.data.powerList.push({
+          type: this.data.type,
+          deadline: this.data.date,
           Course: this.data.Course,
           taskName: this.data.taskName,
-          taskRemark: this.data.taskRemark,
-          date:this.data.date,
-          type:this.data.radio //1为课程作业，2为实验，3为实践作业
-       },
-       method:'POST',
-       success:res =>{
-         if(res.data=='sucess'){
-           wx.showToast({
-             title: '新增成功',
-           })
-         }else{
-           wx.showToast({
-             title: '新增失败',
-             icon:'error'
-           })
-         }
-       }
-       })
-    }else{//不需要同步的情况
-         
+          taskRemark: this.data.taskRemark
+        });
+        wx.setStorageSync('todo_list', this.data.powerList);
+      }
     }
   }
 });

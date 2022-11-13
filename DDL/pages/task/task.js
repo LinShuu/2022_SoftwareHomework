@@ -1,66 +1,41 @@
-// pages/task/task.js
+//index.js 调用封装的方法
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-
+    dateString: "",
+    spot: ['2021/1/17', '2021/2/17', '2021/3/17', '2021/4/17', '2021/5/17', '2021/6/17', '2021/7/17', '2021/8/17', '2021/9/17', '2021/10/17', '2021/11/17', '2021/12/17'],
+    powerList: [],
+    active:1,
+    syn:''
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-
+  dateChange(e) {
+    // console.log("选中日期变了,现在日期是", e.detail.dateString)
+    this.setData({
+      dateString: e.detail.dateString
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
+  onReady: function () {
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
+  onLoad() {
+    var powerList = wx.getStorageSync('todo_list');
+    if (powerList) {
+      this.setData({ powerList: powerList.reverse()});
+    }
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
+  onPullDownRefresh(){
+    var powerList = wx.getStorageSync('todo_list');
+    if (powerList) {
+      this.setData({ powerList: powerList.reverse()});
+    }
+    wx.stopPullDownRefresh();
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
+  onChange(event) {
+    this.setData({ active: event.detail });
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
+  synchronize(){
+    this.data.syn = true;//后面根据后端逻辑完成函数
   }
 })
+
