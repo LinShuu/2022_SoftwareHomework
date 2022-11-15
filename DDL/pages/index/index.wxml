@@ -1,0 +1,19 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="login"> 
+    <image class="img" src="/img/登录.png"></image>
+    <!--账号-->
+    <view><label class="idLab">学号:</label> </view>
+    <view><input class="idInput" placeholder="请输入学号" bindinput="getID" /> </view>
+    <view class="line"></view> 
+    <!--密码-->
+    <view><label class="passwordLab">密码:</label> </view>
+    <view><input class="passwordInput" password="true" placeholder="请输入教务系统登录密码"bindinput="getPassword" /> </view>
+    <!--按钮-->
+    <view class="loginBtnView"> 
+      <button class="loginBtn" bindtap="login" open-type="getUserInfo">登录</button> 
+    </view> 
+  </view> 
+</view>
+
+
