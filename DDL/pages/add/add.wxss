@@ -1,14 +1,72 @@
 /* pages/add/add.wxss */
-.backGround{
-  position: fixed;
-  height: 110%;
-  width: 113%;
-  top: 80rpx;
-  right: -50rpx;
-  z-index: -1;  /*让图片置于最底层*/
+div {
+  position: relative;
+  padding: 25rpx 36rpx;
+  text-align:center;
+  display: block;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  border-radius: 40rpx;
+  border: none;
+ }
+ 
+div span {
+  position: relative;
+  color: #fff;
+  font-family: Arial;
+  letter-spacing: 16rpx;
+  z-index: 1;
+ }
+ 
+div .liquid {
+  position: absolute;
+  top: -20rpx;
+  left: -40rpx;
+  width: 100%;
+  height: 300rpx;
+  background: #4973ff;
+  box-shadow: inset 0rpx 0rpx 50rpx rgba(0, 0, 0, .5);
+  transition: .5s;
+ }
+ 
+div .liquid::after,
+ div .liquid::before {
+  content: '';
+  width: 200%;
+  height: 200%;
+  position: absolute;
+  top: 0rpx;
+  left: 50%;
+  transform: translate(-50%, -75%);
+  background: #fff;
+ }
+ 
+ div .liquid::before {
+  border-radius: 45%;
+  background: rgb(28, 160, 236);
+  animation: animate 5s linear infinite;
+ }
+ 
+ div .liquid::after {
+  border-radius: 40%;
+  background: rgba(24, 219, 210, 0.5);
+  animation: animate 10s linear infinite;
+ }
 
-}
-.gotoAllTask{
+ div:hover .liquid {
+  top: -60rpx;
+ }
+
+ @keyframes animate {
+  0% {
+   transform: translate(-50%, -75%) rotate(0deg);
+  }
+  100% {
+   transform: translate(-50%, -75%) rotate(360deg);
+  }
+ }
+/* .gotoAllTask{
   font-size: larger;
   width: 100%;
   height: 100rpx;
@@ -18,10 +76,27 @@
   align-items:center;
   justify-content:center;
   background-color: #74CA00;
+} */
+
+.creat{
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 90%;
+  height: 88%;
+  border-radius: 60rpx;
+  margin-left: 5rpx;
+
+  background: white;
+  box-shadow: 0rpx 15rpx 15rpx 30rpx #bebebe,
+  -15rpx -15rpx 30rpx #ffffff;
 }
+
+
 .title {
   text-align: center;
-  margin-top: 7%;
+  margin-top: 3%;
   margin-bottom: 2%;
   font-size: larger;
 }
@@ -30,7 +105,7 @@
 .inputview {
   display: flex;
   /* background-color:#f2f2f7; */
-  margin-left: 100rpx;
+  margin-left: 12%;
   width: 75%;
   height: 70rpx;
   align-items: center;
@@ -43,7 +118,7 @@
 .inputview1 {
   display: flex;
   /* background-color:#f2f2f7; */
-  margin-left: 100rpx;
+  margin-left: 12%;
   height: 120rpx;
   width: 75%;
   margin-top: 2%;
@@ -61,7 +136,7 @@
   display: flex;
   position: relative;
   margin-top: 2%;
-  margin-left: 100rpx;
+  margin-left: 12%;
   width: 75%;
   border-radius: 25rpx;
   align-items: center;
@@ -71,28 +146,68 @@
   /* border-radius: 20rpx; */
 }
 
+
 .radio {
-  margin-left: 100rpx;
   margin-top: 3%;
+  width: 100%;
+  text-align: center;
+  justify-content: space-between;
 }
-
-.radio_text {
-  margin-bottom: 3%;
+.course{
+  margin-left: 80rpx;
+  display: block;
+  width: 27%;
+  height: 50rpx;
+  border-radius: 15rpx;
+  background-color: RGB(153, 225, 205);
+  font-size: 30rpx;
+  text-align: left;
+  margin-top: 2%;
 }
-
+.experiment{
+  display: block;
+  width: 20%;
+  height: 50rpx;
+  border-radius: 15rpx;
+  background-color: RGB(195, 185, 250);
+  font-size: 30rpx;
+  text-align: left; 
+  margin-top: 2%;
+  margin-left: 1%;
+}
+.practice{
+  display: block;
+  width: 27%;
+  height: 50rpx;
+  border-radius: 15rpx;
+  background-color: RGB(153, 213, 255);
+  font-size: 30rpx;
+  text-align: left;
+  margin-top: 2%;
+  margin-left: 1%;
+}
+.radio_option{
+  margin-top: 3%;
+  text-align: center;
+}
 .button {
   margin-top: 5%;
-  margin-left: 140rpx;
-  height: 100%;
-  width: 65%;
+  margin-left: 170rpx;
+  height: 50rpx;
+  width: 50%;
 }
 
 button {
   border-radius: 35rpx;
-  font-size: larger;
+  font-size: 35rpx;
 }
 
 .lab {
   width: 80%;
   padding-left: 20rpx;
+}
+
+.page-section-title{
+   text-align: left;
+   margin-left: 80rpx;
 }

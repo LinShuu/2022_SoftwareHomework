@@ -20,10 +20,12 @@
 </view>
 
 <!-- 任务展示部分 -->
-<block wx:if="{{ ddl_list.length }}">
+<block wx:if="{{ ddlList.length }}">
   <view class="todos">
-    <view data-ddl="{{index}}" wx:for="{{ ddl_list}}"    wx:key="index" wx:for-item="value">
-      <navigator url="../edit/edit" class="item" bindtap="pass">
+    <view data-ddl="{{index}}" wx:for="{{ddlList}}" wx:key="index" wx:for-item="value" data-course="{{value.Course}}"data-type="{{value.type}}" data-isChecked_warn="{{value.isChecked_warn}}" data-currentchoose ="{{value.currentChoose}}"
+    data-deadline="{{value.deadline}}"  
+    data-taskName="{{value.taskName}}" data-taskRemark="{{value.taskRemark}}"  data-index="{{ index }}" bindtap="pass">
+      <navigator url="../edit/edit" class="item" >
         <view class="type">{{value.type}}</view>
         <view>截止日期：{{value.deadline}}</view>
         <view>课程名称：{{value.Course}}</view>

@@ -31,21 +31,7 @@
         },
         {
           "name": "",
-          "pathName": "pages/logs/logs",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "",
-          "pathName": "pages/logs/logs",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "",
-          "pathName": "pages/edit/edit",
+          "pathName": "pages/allTask/allTask",
           "query": "",
           "launchMode": "default",
           "scene": null
@@ -56,9 +42,30 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/course/course",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "components/DateTimePicker/DateTimePicker",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/edit/edit",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
   },
-  "libVersion": "2.27.1"
+  "libVersion": "2.27.3"
 }

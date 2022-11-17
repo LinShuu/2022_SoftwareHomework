@@ -1,4 +1,4 @@
-// pages/forUs/forUs.js
+// components/DateTimePicker/DateTimePicker.js
 Page({
 
   /**

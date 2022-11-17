@@ -9,15 +9,15 @@ Page({
     selfList: [{
       title: '所有任务',
       page: 'allTask',
-      img: '所有任务.png',
+      img: 'allTask.png',
     }, {
       title: '关于我们',
       page: 'forUs',
-      img: '关于我们.png',
+      img: 'forUs.png',
     }, {
       title: '设置',
       page: 'setting',
-      img: '设置.png',
+      img: 'setting.png',
     }],
   },
   onLoad() {
@@ -51,6 +51,11 @@ Page({
     })
     app.globalData.nickName = nickname
     wx.setStorageSync('nickName', nickname)
+    wx.showToast({
+      title: '成功修改昵称',
+      icon: 'success',
+      duration: 1000
+    })
   },
   getNickname:function(e){
     const { nickName } = e.detail.value

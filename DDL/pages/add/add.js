@@ -19,14 +19,24 @@ Page({
     //任务类型，默认为课程作业
     radio: '1',
     ddlList: [],
-    type:'',
-    showPop:false,
-    courseList:[]
+    type: '',
+    minHour: 0,
+    maxHour: 24,
+    minDate: new Date().getTime(),
+    maxDate: new Date(2099, 12, 31).getTime(),
+    currentDate: new Date().getTime(),
+    showPop_date:false,
+    currentChoose: ''
   },
-  onLoad(){
+  onLoad() {
+    if (app.globalData.ddl_list) {
+      this.setData({
+        ddlList: app.globalData.ddl_list
+      })
+    }
     console.log(app.globalData.ddl_list)
   },
-  gotoAllTask(){
+  gotoAllTask() {
     wx.navigateTo({
       url: '/pages/allTask/allTask',
     })
@@ -35,7 +45,7 @@ Page({
   onConfirmCourse(event) {
     const { picker, value, index } = event.detail;
     this.setData({
-      Course:value
+      Course: value
     });
     this.setData({ showPop: false });
   },
@@ -43,6 +53,7 @@ Page({
   onCancelCourse() {
     this.setData({ showPop: false });
   },
+
   //获取任务名称
   getTaskname(e) {
     this.setData({
@@ -79,6 +90,16 @@ Page({
         isChecked_warn: detail.value
       }
     )
+    //如果选择提醒
+    if (this.data.isChecked_warn) {
+       this.setData({
+         showPop_date:true
+       })
+    }else{
+      this.setData({
+        currentChoose:''
+      })
+    }
   },
   onChange_syn({ detail }) {
     // 需要手动对 checked 状态进行更新
@@ -91,18 +112,18 @@ Page({
   },
   onChange1(event) {
     this.setData({
-      radio: event.detail
+      radio: event.detail.value
     });
   },
   //课程选择弹出层
   showPopup() {
     this.setData({
-      courseList:['软件工程','计算机操作系统','计算机图形学','嵌入式系统','软件体系结构','人工智能','虚拟现实','机器学习','形式与政策','Linux操作系统实践','软件工程实践']//测试用数据
+      courseList: ['软件工程', '计算机操作系统', '计算机图形学', '嵌入式系统', '软件体系结构', '人工智能', '虚拟现实', '机器学习', '形式与政策', 'Linux操作系统实践', '软件工程实践']//测试用数据
     });
     this.setData({ showPop: true });
   },
   // 课程选择关闭
-  onClosePop(){
+  onClosePop() {
     this.setData({ show: false });
   },
   submit() {
@@ -133,14 +154,15 @@ Page({
       //需要同步的情况
       if (this.data.isChecked_syn == true) {
         wx.request({
-          url: '接口地址',
-          header: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' },
+          url: 'http://',
+          header: { 'Content-Type': 'application/json;charset=utf-8' },
           data: {
-            Course: this.data.Course,
-            taskName: this.data.taskName,
-            taskRemark: this.data.taskRemark,
-            deadline: this.data.date,
-            type: this.data.type //1为课程作业，2为实验，3为实践作业
+            status: 0,
+            TableName: this.data.Course + "",
+            TaskID: this.data.taskName,
+            Content: this.data.taskRemark,
+            DDL: this.data.date,
+            Type: this.data.type //1为课程作业，2为实验，3为实践作业
           },
           method: 'POST',
           success: res => {
@@ -162,7 +184,9 @@ Page({
           deadline: this.data.date,
           Course: this.data.Course,
           taskName: this.data.taskName,
-          taskRemark: this.data.taskRemark
+          taskRemark: this.data.taskRemark,
+          isChecked_warn: this.data.isChecked_warn,
+          currentChoose: this.data.currentChoose
         });
         wx.showToast({
           title: '创建成功',
@@ -173,6 +197,34 @@ Page({
         wx.setStorageSync('ddl_list', this.data.ddlList);
       }
     }
+  },
+  //消息提醒时间选择器
+  onConfirm_date(e) {
+    this.setData({
+      showPop_date: false,
+      currentChoose: this.formatDate1(new Date(e.detail))
+    })
+  },
+  onCancel_date() {
+    this.setData({ showPop_date: false })
+  },
+  formatDate1(date) {
+    let taskStartTime;
+    if (date.getMonth() < 9) {
+      taskStartTime = date.getFullYear() + "-0" + (date.getMonth() + 1) + "-"
+    } else {
+      taskStartTime = date.getFullYear() + "-" + (date.getMonth() + 1) + "-"
+    }
+    if (date.getDate() < 10) {
+      taskStartTime += "0" + date.getDate()
+    } else {
+      taskStartTime += date.getDate()
+    }
+    taskStartTime += " " + date.getHours() + ":" + date.getMinutes()
+    this.setData({
+      taskStartTime: taskStartTime,
+    })
+    return taskStartTime;
   }
 });
 
